@@ -1,5 +1,5 @@
 import HATEOAS from '../../helpers/hateoas.js'
-import { getAllJoyasHateoasModel, getPaginadoJoyasModel } from '../Models/joyasModel.js'
+import { getAllJoyasHateoasModel, getFiltradoJoyasModel, getPaginadoJoyasModel } from '../Models/joyasModel.js'
 
 // HATEOAS
 
@@ -23,6 +23,19 @@ export const getPaginadoJoyas = async (req, res) => {
     res.status(200).json({ joyas })
   } catch (error) {
     res.json({ error: 'Error al Obtener y Ordenar las Joyas' })
+    console.error('Error al procesar la solicitud:', error)
+  }
+}
+
+// Get con Filtros
+
+export const getFiltradoJoyas = async (req, res) => {
+  try {
+    const { precio_max, precio_min, categoria, metal } = req.query
+    const joyas = await getFiltradoJoyasModel({ precio_max, precio_min, categoria, metal })
+    res.status(200).json({ joyas })
+  } catch (error) {
+    res.json({ error: 'Error al realizar filtros' })
     console.error('Error al procesar la solicitud:', error)
   }
 }

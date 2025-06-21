@@ -25,4 +25,30 @@ const getPaginadoJoyasModel = async ({ orderby = 'stock_ASC', limit = 3, page = 
   return response.rows
 }
 
-export { getAllJoyasHateoasModel, getPaginadoJoyasModel }
+// GET con Filtros
+
+const getFiltradoJoyasModel = async ({ precio_max, precio_min, categoria, metal }) => {
+  const filtros = []
+
+  if (precio_max) {
+    filtros.push(`precio <= ${precio_max}`)
+  }
+  if (precio_min) {
+    filtros.push(`precio >= ${precio_min}`)
+  }
+  if (categoria) {
+    filtros.push(`categoria = ${categoria}`)
+  }
+  if (metal) {
+    filtros.push(`metal = ${metal}`)
+  }
+  let consulta = 'SELECT * FROM inventario'
+  if (filtros.length > 0) {
+    consulta += 'WHERE' + filtros.join(' AND ')
+  }
+
+  const resultado = await pool.query(consulta)
+  return resultado.rows
+}
+
+export { getAllJoyasHateoasModel, getPaginadoJoyasModel, getFiltradoJoyasModel }
