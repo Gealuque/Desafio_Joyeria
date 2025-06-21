@@ -1,8 +1,9 @@
 import { Router } from 'express'
-import { getAllJoyasHateoas } from '../src/Controllers/joyasController.js'
+import { getAllJoyasHateoas, getPaginadoJoyas } from '../src/Controllers/joyasController.js'
 
 const router = Router()
 
-router.get('/joyas_with_hateoas', getAllJoyasHateoas)
+router.get('/joyas_hateoas', getAllJoyasHateoas)
+router.get('/joyas_paginada', getPaginadoJoyas)
 
 export default router

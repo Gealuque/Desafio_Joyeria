@@ -8,7 +8,7 @@ const HATEOAS = async (entity, data) => {
         }
       ]
     }
-  }).slice(0, 6)
+  }).slice(0, 3)
   console.log(results)
   const total = data.length
   const datosWithHateoas = {
