@@ -8,5 +8,5 @@ app.use(express.json())
 app.use('/api/', JoyasRouter)
 
 app.listen(PORT, () => {
-    console.log(`Server encendido http://localhost:${PORT}`)
+  console.log(`Server encendido http://localhost:${PORT}`)
 })
