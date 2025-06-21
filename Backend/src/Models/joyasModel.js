@@ -29,25 +29,31 @@ const getPaginadoJoyasModel = async ({ orderby = 'stock_ASC', limit = 3, page = 
 
 const getFiltradoJoyasModel = async ({ precio_max, precio_min, categoria, metal }) => {
   const filtros = []
+  const valores = []
 
   if (precio_max) {
-    filtros.push(`precio <= ${precio_max}`)
+    filtros.push('precio <= %L')
+    valores.push(precio_max)
   }
   if (precio_min) {
-    filtros.push(`precio >= ${precio_min}`)
+    filtros.push('precio >= %L')
+    valores.push(precio_min)
   }
   if (categoria) {
-    filtros.push(`categoria = ${categoria}`)
+    filtros.push('categoria = %L')
+    valores.push(categoria)
   }
   if (metal) {
-    filtros.push(`metal = ${metal}`)
+    filtros.push('metal = %L')
+    valores.push(metal)
   }
-  let consulta = 'SELECT * FROM inventario'
+  let sqlQuery = 'SELECT * FROM inventario'
   if (filtros.length > 0) {
-    consulta += 'WHERE' + filtros.join(' AND ')
+    const sqlWhere = format('WHERE' + filtros.join(' AND '), ...valores)
+    sqlQuery += sqlWhere
   }
 
-  const resultado = await pool.query(consulta)
+  const resultado = await pool.query(sqlQuery)
   return resultado.rows
 }
 
