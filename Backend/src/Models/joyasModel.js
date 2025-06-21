@@ -49,7 +49,7 @@ const getFiltradoJoyasModel = async ({ precio_max, precio_min, categoria, metal 
   }
   let sqlQuery = 'SELECT * FROM inventario'
   if (filtros.length > 0) {
-    const sqlWhere = format('WHERE' + filtros.join(' AND '), ...valores)
+    const sqlWhere = format(' WHERE ' + filtros.join(' AND '), ...valores)
     sqlQuery += sqlWhere
   }
 
