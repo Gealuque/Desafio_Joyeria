@@ -1,22 +1,22 @@
 const HATEOAS = async (entity, data) => {
+  let stock = 0;
   const results = data.map((item) => {
+    stock += item.stock;
     return {
       name: item.nombre,
-      links: [
-        {
-          href: `http://localhost:3000/api/${entity}/${item.id}`
-        }
-      ]
-    }
-  }).slice(0, 3)
-  console.log(results)
-  const total = data.length
-  const datosWithHateoas = {
-    total,
-    results
-  }
-  console.log(datosWithHateoas)
-  return datosWithHateoas
-}
+      href: `http://localhost:3000/${entity}/${item.id}`,
+    };
+  });
 
-export default HATEOAS
+  console.log(results);
+  const total = data.length;
+  const datosWithHateoas = {
+    totalJoyas: total,
+    stockTotal: stock,
+    results,
+  };
+  console.log(datosWithHateoas);
+  return datosWithHateoas;
+};
+
+export default HATEOAS;

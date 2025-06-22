@@ -3,8 +3,8 @@ import { getAllJoyasHateoas, getFiltradoJoyas, getPaginadoJoyas } from '../src/C
 
 const router = Router()
 
-router.get('/joyas_hateoas', getAllJoyasHateoas)
-router.get('/joyas_paginada', getPaginadoJoyas)
-router.get('/joyas_filtradas', getFiltradoJoyas)
+// router.get('/joyas', getAllJoyasHateoas)
+router.get('/joyas', getAllJoyasHateoas)
+router.get('/joyas/filtros', getFiltradoJoyas)
 
 export default router
